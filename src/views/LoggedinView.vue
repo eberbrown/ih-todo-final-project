@@ -3,7 +3,7 @@
 
 <template>
 	<main>
-		<h1>Home View!</h1>
+		<h1>Logged In View!</h1>
 	</main>
 </template>
 
