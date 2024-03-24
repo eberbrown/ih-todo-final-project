@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from 'vue';
-import { seeCurrentUser } from '@/api/userApi';
+/* import { seeCurrentUser } from '@/api/userApi'; */
+import { useUserStore } from "@/stores/userStore";
 
-const account = ref("");
+const userStore = useUserStore();
+const user = ref("");
 
 async function getSession() {
-	account.value = await seeCurrentUser();
+	user.value = await userStore.currentUser;
 }
 
 getSession();
@@ -14,7 +16,7 @@ getSession();
 <template>
 	<main>
 		<h1>Logged In View!</h1>
-		<p>User signed in: <samp>{{ account == "" ? "" : account.user.email }}</samp></p>
+		<p>User signed in: <samp>{{ user == "" ? "" : user.user.email }}</samp></p>
 	</main>
 </template>
 
