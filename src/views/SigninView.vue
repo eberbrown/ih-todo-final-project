@@ -1,26 +1,27 @@
 <script setup>
-import { ref } from 'vue';
-import { createAccount, login, seeCurrentUser, logout } from '@/api/userApi.js';
+
+ import { ref } from 'vue';
+import { useAuthStore } from '@/stores/userStore';
+const {signUp, signIn, signOut, seeCurrentUser} = useAuthStore();
 
 const email = ref("");
 const password = ref("");
 const firstName = ref("");
 
-//create an account
 const createAccountUser = () => {
-	createAccount(email.value, password.value, firstName.value);
+	signUp(email.value, password.value, firstName.value);
 	email.value = "";
 	password.value = "";
 	firstName.value = "";
 };
 
-//login into an account
 const loginUser = () => {
-	login(email.value, password.value);
+	signIn(email.value, password.value);
 	email.value = "";
 	password.value = "";
 	firstName.value = "";
 };
+
 </script>
 
 <template>
@@ -44,7 +45,7 @@ const loginUser = () => {
 			<button @click="createAccountUser"> Create </button>
 			<button @click="loginUser"> Login </button>
 			<button @click="seeCurrentUser"> See user </button>
-			<button @click="logout"> Logout </button>
+			<button @click="signOut"> Logout </button>
 		</div>
 	</main>
 </template>
