@@ -41,7 +41,7 @@ export async function seeCurrentUser() {
     console.log(error)
     return data.session
   } else {
-    console.log(data);
+    console.log(data.session);
     return data.session
   }
 }
