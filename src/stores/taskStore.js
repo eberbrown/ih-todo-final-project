@@ -61,6 +61,26 @@ export const useTaskStore = defineStore('task', () => {
     }
   }
 
+  async function updateComplete(taskComplete, taskID) {
+    try {
+      loadingTasks.value = true
+      const { error } = await supabase
+        .from('tasks')
+        .update({
+          is_complete: taskComplete
+        })
+        .eq('id', taskID)
+      console.log('Task updated correctly')
+      if (error) throw error
+      return tasks.value
+    } catch (error) {
+      console.log(error)
+      errorTask.value = error.message
+    } finally {
+      loadingTasks.value = false
+    }
+  }
+
   async function deleteTask(taskID) {
     try {
       loadingTasks.value = true
@@ -81,6 +101,7 @@ export const useTaskStore = defineStore('task', () => {
     fetchAllTasks,
     insertTask,
     updateTask,
+    updateComplete,
     deleteTask,
     async currentTasks(userID) {
       return await fetchAllTasks(userID)

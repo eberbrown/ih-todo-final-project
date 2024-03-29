@@ -1,20 +1,18 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useAuthStore } from "@/stores/userStore.js";
 import { useTaskStore } from "@/stores/taskStore.js";
 
 const { currentUser, seeCurrentUser } = useAuthStore();
-const { tasks, fetchAllTasks, insertTask, updateTask, deleteTask } = useTaskStore();
+const { tasks, fetchAllTasks, insertTask, updateTask, updateComplete, deleteTask } = useTaskStore();
 
 const user = ref(currentUser);
 const taskName = ref("");
 const taskList = ref(tasks);
 
 onMounted(async () => {
-	/* if (user.value !== null) {
-		await fetchAllTasks(currentUser.id);
-	} */
-	taskList.value = await fetchAllTasks(currentUser.id);
+	user.value = await seeCurrentUser();
+	taskList.value = await fetchAllTasks(user.value.id);
 });
 
 async function addTask() {
@@ -28,6 +26,24 @@ async function editTask(taskID) {
 	taskList.value = await fetchAllTasks(user.value.id);
 	taskName.value = "";
 }
+
+async function markTask(complete, taskID) {
+	let completeUpdate = !complete;
+	await updateComplete(completeUpdate, taskID);
+	taskList.value = await fetchAllTasks(user.value.id);
+}
+
+const sortTasks = computed(() => {
+	const sortedTasks = [...taskList.value];
+
+	sortedTasks.sort((x, y) => {
+		return x.is_complete - y.is_complete
+	});
+
+	return sortedTasks.sort((x, y) => {
+		return x.inserted_at - y.inserted_at
+	})
+});
 
 async function removeTask(taskID) {
 	await deleteTask(taskID);
@@ -48,9 +64,10 @@ async function removeTask(taskID) {
 			</div>
 			<div class="task-list-container">
 				<ul class="list-task">
-					<li v-for="(task, index) in taskList" :key="index">
+					<li v-for="task in sortTasks" :key="task.id">
 						<span>{{ task.title }} </span>
-						<input type="checkbox" :checked="task.is_complete">
+						<input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
+							:id="task.id">
 						<span>{{ task.inserted_at }}</span>
 						<button @click="editTask(task.id)">Edit</button>
 						<button @click="removeTask(task.id)">Delete</button>

@@ -71,6 +71,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (error) throw error;
       currentUser.value = data.session.user;
       console.log(currentUser.value);
+      return currentUser.value
     } catch (error) {
       errorAuth.value = error.message;
       console.log("This is an error on the seeCurrentUser function of userStore: ", error);
