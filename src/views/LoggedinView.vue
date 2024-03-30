@@ -33,6 +33,11 @@ async function markTask(complete, taskID) {
 	taskList.value = await fetchAllTasks(user.value.id);
 }
 
+async function removeTask(taskID) {
+	await deleteTask(taskID);
+	taskList.value = await fetchAllTasks(user.value.id);
+}
+
 const sortTasks = computed(() => {
 	const sortedTasks = [...taskList.value];
 
@@ -45,10 +50,18 @@ const sortTasks = computed(() => {
 	})
 });
 
-async function removeTask(taskID) {
-	await deleteTask(taskID);
-	taskList.value = await fetchAllTasks(user.value.id);
+function formatDate(timestamp) {
+	const date = new Date(timestamp);
+
+	const year = date.getFullYear();
+	const month = date.getMonth() + 1; // Months are zero-based, so adding 1
+	const day = date.getDate();
+
+	const formattedDate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`;
+
+	return formattedDate;
 }
+
 </script>
 
 <template>
@@ -68,7 +81,7 @@ async function removeTask(taskID) {
 						<span>{{ task.title }} </span>
 						<input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
 							:id="task.id">
-						<span>{{ task.inserted_at }}</span>
+						<span>{{ formatDate(task.inserted_at) }}</span>
 						<button @click="editTask(task.id)">Edit</button>
 						<button @click="removeTask(task.id)">Delete</button>
 					</li>
