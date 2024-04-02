@@ -2,40 +2,46 @@
 import { onMounted, ref, computed } from 'vue';
 import { useAuthStore } from "@/stores/userStore.js";
 import { useTaskStore } from "@/stores/taskStore.js";
+import { storeToRefs } from 'pinia';
 
-const { currentUser, seeCurrentUser } = useAuthStore();
-const { tasks, fetchAllTasks, insertTask, updateTask, updateComplete, deleteTask } = useTaskStore();
+const userStore = useAuthStore();
+const { currentUser } = storeToRefs(userStore);
+const { seeCurrentUser } = useAuthStore();
+
+const taskStore = useTaskStore();
+const { tasks } = storeToRefs(taskStore);
+const { fetchAllTasks, insertTask, updateTask, updateComplete, deleteTask } = taskStore;
 
 const user = ref(currentUser);
 const taskName = ref("");
 const taskList = ref(tasks);
 
+
 onMounted(async () => {
 	user.value = await seeCurrentUser();
-	taskList.value = await fetchAllTasks(user.value.id);
+	await fetchAllTasks();
 });
 
 async function addTask() {
 	await insertTask(user.value.id, taskName.value);
-	taskList.value = await fetchAllTasks(user.value.id);
 	taskName.value = "";
 }
 
 async function editTask(taskID) {
 	await updateTask(taskName.value, taskID);
-	taskList.value = await fetchAllTasks(user.value.id);
+	/* taskList.value = await fetchAllTasks(user.value.id); */
 	taskName.value = "";
 }
 
 async function markTask(complete, taskID) {
 	let completeUpdate = !complete;
 	await updateComplete(completeUpdate, taskID);
-	taskList.value = await fetchAllTasks(user.value.id);
+	/* taskList.value = await fetchAllTasks(user.value.id); */
 }
 
 async function removeTask(taskID) {
 	await deleteTask(taskID);
-	taskList.value = await fetchAllTasks(user.value.id);
+	/* taskList.value = await fetchAllTasks(user.value.id); */
 }
 
 const sortTasks = computed(() => {
@@ -46,7 +52,7 @@ const sortTasks = computed(() => {
 	});
 
 	return sortedTasks.sort((x, y) => {
-		return x.inserted_at - y.inserted_at
+		return new Date(x.inserted_at) - Date(y.inserted_at)
 	})
 });
 
@@ -61,7 +67,6 @@ function formatDate(timestamp) {
 
 	return formattedDate;
 }
-
 </script>
 
 <template>
@@ -73,7 +78,6 @@ function formatDate(timestamp) {
 				<label for="taskName"> New Task </label>
 				<input type="string" id="taskName" v-model="taskName" @keydown.enter="addTask">
 				<input type="checkbox">
-
 			</div>
 			<div class="task-list-container">
 				<ul class="list-task">

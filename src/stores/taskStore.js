@@ -1,19 +1,20 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { supabase } from '@/api/supabase'
+/* import { createTask } from '@/api/taskApi' */
 
 export const useTaskStore = defineStore('task', () => {
   const tasks = ref([])
   const loadingTasks = ref(false)
   const errorTask = ref(null)
 
-  const fetchAllTasks = async (userID) => {
+  const fetchAllTasks = async () => {
     try {
       loadingTasks.value = true
-      const { data, error } = await supabase.from('tasks').select().eq('user_id', userID)
+      const { data, error } = await supabase.from('tasks').select()
+      if (error) throw error
       tasks.value = data
       console.log(tasks.value)
-      if (error) throw error
       return tasks.value
     } catch (error) {
       console.log(error)
@@ -26,13 +27,18 @@ export const useTaskStore = defineStore('task', () => {
   async function insertTask(userID, taskName) {
     try {
       loadingTasks.value = true
-      const { error } = await supabase.from('tasks').insert({
-        user_id: userID,
-        title: taskName
-      })
+      /* const newTask = await createTask(userID, taskName) */
+      const { data, error } = await supabase
+        .from('tasks')
+        .insert({ user_id: userID, title: taskName })
+        .select()
+      if (error) {
+        console.log('Is this te error  ---->', error)
+        throw error
+      }
       console.log('Task added correctly')
-      if (error) throw error
-      return tasks.value
+      tasks.value.push(data[0])
+      /* tasks.value.push(newTask) */
     } catch (error) {
       console.log(error)
       errorTask.value = error.message
@@ -50,9 +56,14 @@ export const useTaskStore = defineStore('task', () => {
           title: taskName
         })
         .eq('id', taskID)
-      console.log('Task updated correctly')
       if (error) throw error
-      return tasks.value
+      console.log('Task updated correctly')
+      for (const task of tasks.value) {
+        if (task.id === taskID) {
+          task.title = taskName
+        }
+      }
+      /* return tasks.value */
     } catch (error) {
       console.log(error)
       errorTask.value = error.message
@@ -70,9 +81,14 @@ export const useTaskStore = defineStore('task', () => {
           is_complete: taskComplete
         })
         .eq('id', taskID)
-      console.log('Task updated correctly')
       if (error) throw error
-      return tasks.value
+      console.log('Task updated correctly')
+      for (const task of tasks.value) {
+        if (task.id === taskID) {
+          task.is_complete = taskComplete
+        }
+      }
+      /* return tasks.value */
     } catch (error) {
       console.log(error)
       errorTask.value = error.message
@@ -85,9 +101,10 @@ export const useTaskStore = defineStore('task', () => {
     try {
       loadingTasks.value = true
       const { error } = await supabase.from('tasks').delete().eq('id', taskID)
-      console.log('Task deleted correctly')
+      console.log('Task deleted correctly!')
       if (error) throw error
-      return tasks.value
+      tasks.value = tasks.value.filter((item) => item.id !== taskID)
+      /* return tasks.value */
     } catch (error) {
       console.log(error)
       errorTask.value = error.message
@@ -102,9 +119,6 @@ export const useTaskStore = defineStore('task', () => {
     insertTask,
     updateTask,
     updateComplete,
-    deleteTask,
-    async currentTasks(userID) {
-      return await fetchAllTasks(userID)
-    }
+    deleteTask
   }
 })

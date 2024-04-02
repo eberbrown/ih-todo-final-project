@@ -1,12 +1,10 @@
+<script setup>
+import NavBar from "./components/NavBar.vue";
+</script>
 <template>
   <header>
     <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/signin">Sign In</RouterLink>
-        <RouterLink to="/loggedin">Logged In</RouterLink>
-      </nav>
+      <NavBar />
     </div>
   </header>
 

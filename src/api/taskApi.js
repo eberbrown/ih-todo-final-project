@@ -19,3 +19,20 @@ export const insertTask = async (userID, taskName) => {
   }
 };
  */
+
+/* import { supabase } from '@/api/supabase'
+
+export const createTask = async (userID, taskName) => {
+  const { data, error } = await supabase
+    .from('tasks')
+    .insert({ user_id: userID, title: taskName })
+    .select()
+
+  if (error) {
+    console.log('Is this te error  ---->', error)
+    throw error
+  }
+
+  console.log('Task added correctly')
+  return data[0]
+} */

@@ -45,7 +45,7 @@ const router = createRouter({
 async function getUser(next) {
   localUser = await seeCurrentUser();
   if (localUser == null) {
-    next("/unauthorized")
+    next("/")
   } else {
     next();
   }
