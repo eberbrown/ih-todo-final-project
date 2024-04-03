@@ -69,6 +69,7 @@ button {
   color: #ffffff;
   font-weight: bold;
   border: none;
+  border-radius: 3px;
 }
 
 input {

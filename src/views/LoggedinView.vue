@@ -29,19 +29,16 @@ async function addTask() {
 
 async function editTask(taskID) {
 	await updateTask(taskName.value, taskID);
-	/* taskList.value = await fetchAllTasks(user.value.id); */
 	taskName.value = "";
 }
 
 async function markTask(complete, taskID) {
 	let completeUpdate = !complete;
 	await updateComplete(completeUpdate, taskID);
-	/* taskList.value = await fetchAllTasks(user.value.id); */
 }
 
 async function removeTask(taskID) {
 	await deleteTask(taskID);
-	/* taskList.value = await fetchAllTasks(user.value.id); */
 }
 
 const sortTasks = computed(() => {
