@@ -1,7 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-/* import { seeCurrentUser } from '@/api/userApi'; */
-import { supabase } from '@/api/supabase'
+import { createAccount, login, logout, seeCurrentUser } from '@/api/userApi';
 
 export const useAuthStore = defineStore('auth', () => {
   const currentUser = ref(null);
@@ -11,19 +10,8 @@ export const useAuthStore = defineStore('auth', () => {
   async function signUp(email, password, firstName, lastName) {
     try {
       loading.value = true;
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            first_name: firstName,
-            last_name: lastName
-          }
-        }
-      });
-      currentUser.value = data.user;
-      console.log(currentUser.value);
-      if (error) throw error;
+      const userData = await createAccount(email, password, firstName, lastName);
+      currentUser.value = userData.user;
     } catch (error) {
       errorAuth.value = error.message;
       console.log(error);
@@ -35,13 +23,8 @@ export const useAuthStore = defineStore('auth', () => {
   async function signIn(email, password) {
     try {
       loading.value = true;
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      });
-      currentUser.value = data.user;
-      console.log(currentUser.value);
-      if (error) throw error;
+      const userData = await login(email, password);
+      currentUser.value = userData.user
     } catch (error) {
       errorAuth.value = error.message;
       console.log(error);
@@ -53,10 +36,8 @@ export const useAuthStore = defineStore('auth', () => {
   async function signOut() {
     try {
       loading.value = true
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      await logout();
       currentUser.value = null;
-      alert('Signed out yes yes');
     } catch (error) {
       errorAuth.value = error.message;
       console.log(error);
@@ -65,13 +46,11 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function seeCurrentUser() {
+  async function seeCurrentUserStore() {
     try {
       loading.value = true
-      const { data, error } = await supabase.auth.getSession()
-      if (error) throw error;
-      currentUser.value = data.session.user;
-      console.log(currentUser.value);
+      const userData = await seeCurrentUser();
+      currentUser.value = userData.user
       return currentUser.value
     } catch (error) {
       errorAuth.value = error.message;
@@ -79,25 +58,12 @@ export const useAuthStore = defineStore('auth', () => {
     } 
   }
   
-
   return {
     currentUser,
     loading,
     signUp,
     signIn,
     signOut,
-    seeCurrentUser
+    seeCurrentUserStore
   }
 })
-
-/* export const useUserStore = defineStore('user', () => {
-  const user = ref(null);
-  const currentUser = computed(async () => {
-    return (user.value = await seeCurrentUser())
-  })
-
-  return {
-    user,
-    currentUser
-  }
-}) */

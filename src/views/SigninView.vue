@@ -2,7 +2,7 @@
 
  import { ref } from 'vue';
 import { useAuthStore } from '@/stores/userStore';
-const {signUp, signIn, signOut, seeCurrentUser} = useAuthStore();
+const {signUp, signIn, signOut, seeCurrentUserStore} = useAuthStore();
 
 const email = ref("");
 const password = ref("");
@@ -50,7 +50,7 @@ const loginUser = () => {
 		<div class="buttonContainer">
 			<button @click="createAccountUser"> Create </button>
 			<button @click="loginUser"> Login </button>
-			<button @click="seeCurrentUser"> See user </button>
+			<button @click="seeCurrentUserStore"> See user </button>
 			<button @click="signOut"> Logout </button>
 		</div>
 	</main>

@@ -1,23 +1,26 @@
 import { supabase } from '@/api/supabase'
 
-/* export async function createAccount(email, password, firstName) {
+export async function createAccount(email, password, firstName, lastName) {
   const { data, error } = await supabase.auth.signUp({
     email: email,
     password: password,
     options: {
       data: {
-        first_name: firstName
+        first_name: firstName,
+        last_name: lastName
       }
     }
   })
+
   if (error) {
     console.log(error)
     alert(error)
-    return error
-  } else {
+    throw error
+  }
+
     console.log(data)
     return data
-  }
+  
 }
 
 export async function login(email, password) {
@@ -25,32 +28,39 @@ export async function login(email, password) {
     email: email,
     password: password
   })
+
   if (error) {
     console.log(error)
     alert(error)
-    return error
-  } else {
-    console.log(data)
+    throw error
+  } 
+
+    console.log(data.user)
     return data
-  }
-} */
+  
+} 
 
 export async function seeCurrentUser() {
   const { data, error } = await supabase.auth.getSession()
+
   if (error) {
     console.log(error)
     return data.session
-  } else {
+  } 
+
     console.log(data.session);
     return data.session
-  }
+  
 }
 
-/* export async function logout() {
+export async function logout() {
   const { error } = await supabase.auth.signOut()
+
   if (error) {
     console.log(error)
-  } else {
-    alert('Log out has been successful')
+    throw error
   }
-} */
+
+    alert('Log out has been successful')
+  
+}

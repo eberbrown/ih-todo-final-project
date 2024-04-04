@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia';
 
 const userStore = useAuthStore();
 const { currentUser } = storeToRefs(userStore);
-const { seeCurrentUser } = useAuthStore();
+//const { seeCurrentUserStore } = useAuthStore();
 
 const taskStore = useTaskStore();
 const { tasks } = storeToRefs(taskStore);
@@ -16,9 +16,8 @@ const user = ref(currentUser);
 const taskName = ref("");
 const taskList = ref(tasks);
 
-
 onMounted(async () => {
-	user.value = await seeCurrentUser();
+	//user.value = await seeCurrentUserStore();
 	await fetchAllTasks();
 });
 
