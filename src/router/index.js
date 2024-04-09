@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import SigninView from '../views/SigninView.vue';
+/* import SigninView from '../views/SigninView.vue'; */
 import UnauthorizedView from '../views/UnauthorizedView.vue';
 import LoggedinView from '../views/LoggedinView.vue';
 import { seeCurrentUser } from '@/api/userApi';
@@ -19,11 +19,6 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')
-    },
-    {
-      path: '/signin',
-      name: 'signin',
-      component: SigninView
     },
     {
       path: '/unauthorized',

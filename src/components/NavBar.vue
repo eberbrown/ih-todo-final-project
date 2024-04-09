@@ -1,16 +1,22 @@
 <script setup>
 import { useAuthStore } from '@/stores/userStore';
-const { signOut } = useAuthStore();
-/* import { useTaskStore } from "@/stores/taskStore.js"; */
-/* const { tasks, fetchAllTasks, insertTask, updateTask, updateComplete, deleteTask } = useTaskStore(); */
+import { useRouter } from 'vue-router'
+
+const userStore = useAuthStore()
+const router = useRouter()
+
+const logOut = async () => {
+  await userStore.signOut()
+  router.push('/' )
+};
+
 </script>
 
 <template>
     <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/signin">Sign In</RouterLink>
         <RouterLink to="/loggedin">Dashboard</RouterLink>
-        <button @click="signOut"> Logout </button>
+        <button @click="logOut"> Logout </button>
       </nav>
 </template>
 
