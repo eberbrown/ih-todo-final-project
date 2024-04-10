@@ -14,12 +14,11 @@ import NavBar from "./components/NavBar.vue";
 
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  width: 100%;
 }
 
 nav {
-  width: 100%;
+  /* width: 100%; */
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;

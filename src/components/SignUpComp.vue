@@ -39,9 +39,21 @@ const createAccountUser = () => {
         </div>
 
         <div class="buttonContainer">
-            <button @click="createAccountUser"> Create </button>
+            <button @click="createAccountUser" class="sign-in-form-btn"> Create </button>
         </div>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.inputContainer {
+    width: 100%;
+}
+
+.sign-in-form-btn {
+	width: 100%;
+    margin: 0;
+    padding: auto;
+}
+
+</style>

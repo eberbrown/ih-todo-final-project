@@ -24,10 +24,16 @@ const loginUser = () => {
 		</div>
 
 		<div class="buttonContainer">
-			<button @click="loginUser"> Login </button>
+			<button @click="loginUser" class="sign-in-form-btn"> Login </button>
 		</div>
 </template>
 
 <style scoped>
+
+.sign-in-form-btn {
+	width: 100%;
+    margin: 0;
+    padding: auto;
+}
 
 </style>

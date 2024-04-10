@@ -21,6 +21,11 @@ const logOut = async () => {
 </template>
 
 <style scoped>
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 a {
   font-size: 2rem;
 }

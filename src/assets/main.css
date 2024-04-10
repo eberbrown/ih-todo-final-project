@@ -5,7 +5,8 @@
 #1DF564
 #F5C81D
 #1D6BF5
-#1DB0F5*/
+#1DB0F5
+#44546F*/
 
 body {
   display: flex;
@@ -17,25 +18,22 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-}
-
-#app {
   max-width: 1280px;
   margin: 0 auto;
   font-weight: normal;
 }
 
-a,
-.green {
+a {
   text-decoration: none;
   color: #47c96f;
   transition: 0.4s;
   padding: 3px;
+  cursor: pointer;
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: #1DF564;
+    color: #1DF564;
   }
 }
 
@@ -43,6 +41,9 @@ a,
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 @media screen and (min-width: 575px) {
+  #app {
+    width: 325px;
+  }
 }
 
 @media screen and (min-width: 767px) {
