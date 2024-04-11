@@ -66,7 +66,7 @@ function formatDate(timestamp) {
 </script>
 
 <template>
-	<main>
+	<main class="loggedin-view-container">
 		<h1>Logged In View!</h1>
 		<p>User signed in: <samp>{{ user === null ? "null user" : user.email }}</samp></p>
 		<div class="task-input">
@@ -77,21 +77,36 @@ function formatDate(timestamp) {
 			</div>
 			<div class="task-list-container">
 				<ul class="list-task">
-					<li v-for="task in sortTasks" :key="task.id">
-						<span>{{ task.title }} </span>
-						<input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
-							:id="task.id">
-						<span>{{ formatDate(task.inserted_at) }}</span>
-						<button @click="editTask(task.id)">Edit</button>
-						<button @click="removeTask(task.id)">Delete</button>
+					<li v-for="task in sortTasks" :key="task.id" class="individual-task">
+						<div class="task-header">
+							<input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
+							:id="task.id" class="task-complete-input styled-checkbox">
+						</div>
+						<div class="task-title-container"><span class="task-title">{{ task.title }} </span></div>
+
+						<div class="task-footer">
+							<!-- <input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
+							:id="task.id" class="task-complete-input styled-checkbox"> -->
+
+						<span class="task-date">{{ formatDate(task.inserted_at) }}</span>
+						<button @click="editTask(task.id)" class="task-edit-btn">Edit</button>
+						<button @click="removeTask(task.id)" class="task-delete-btn">Delete</button>
+						</div>
+						
 					</li>
 				</ul>
 			</div>
+
 		</div>
 	</main>
 </template>
 
 <style scoped>
+.loggedin-view-container {
+	width: 100%;
+	border: 1px solid red;
+}
+
 p {
 	margin: 10px 0;
 }
@@ -102,13 +117,92 @@ p {
 	margin: 0 10px;
 }
 
+.task-input {
+	width: 100%;
+	/* display: inline; */
+	border: 1px solid blue;
+}
+
 .list-task {
 	list-style: none;
 	padding: 0;
 	margin: 20px 0;
+	border: 1px solid green;
 }
 
-.list-task li {
+.individual-task {
+	min-height: 150px;
 	margin: 10px 0;
+	width: 100%;
+	border: 1px solid violet;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
+
+.task-header {
+	min-height: 35px;
+	background-color: #47c96f;
+	border-radius: 20px 20px 0 0;
+	display: flex;
+	justify-content: end;
+}
+
+.styled-checkbox {
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    width: 2rem; 
+    height: 2rem;
+    border: 2px solid #ccc; 
+    border-radius: 3px; 
+	background-color: #ccc;
+    transition: border-color 0.3s; 
+	vertical-align: middle;
+	padding: 0;
+	cursor: pointer;
+	align-self: center;
+	margin-right: 10px;
+}
+
+.styled-checkbox:checked::after {
+    content: '\2713'; 
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    font-size: 2rem;
+    color: #47c96f; 
+}
+
+.styled-checkbox:checked {
+    border-color: #47c96f;
+	background-color: #1DF564;
+}
+
+.styled-checkbox:hover {
+	border-color: #1DF564;
+}
+
+.task-title-container {
+	/* margin: 5px 0 5px 5px; */
+	margin: 0px 0 0px 5px;
+}
+
+.task-title {
+	font-size: 1.5rem;
+}
+
+.task-footer {
+	display: flex;
+	justify-content: end;
+	align-items: end;
+	margin: 0 0 0 5px;
+}
+
+.task-date {
+	justify-self: start;
+}
+
+
 </style>

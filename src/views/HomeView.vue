@@ -83,7 +83,7 @@ nav {
 .singup-login-link {
 	color: #1D6BF5;
 	font-size: 1.2rem;
-	font-weight: bold;
+	/* font-weight: bold; */
 	margin: 20px 0;
 }
 

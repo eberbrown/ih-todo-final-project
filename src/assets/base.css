@@ -80,7 +80,6 @@ input {
   color: #1D6BF5;
   border: 1px solid #44546F;
   margin: 2px 0;
-  width: 100%;
 }
 
 input::placeholder {

@@ -36,4 +36,9 @@ const loginUser = () => {
     padding: auto;
 }
 
+
+.inputContainer input {
+    width: 100%;
+}
+
 </style>
