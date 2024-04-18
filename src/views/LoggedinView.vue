@@ -15,6 +15,7 @@ const { fetchAllTasks, insertTask, updateTask, updateComplete, deleteTask } = ta
 const user = ref(currentUser);
 const taskName = ref("");
 const taskList = ref(tasks);
+const taskFilter = ref('all');
 
 onMounted(async () => {
 	//user.value = await seeCurrentUserStore();
@@ -40,16 +41,35 @@ async function removeTask(taskID) {
 	await deleteTask(taskID);
 }
 
+const showCompleted = () => {
+	taskFilter.value = "completed";
+}
+
+const showInProgress = () => {
+	taskFilter.value = "inProgress";
+}
+
 const sortTasks = computed(() => {
-	const sortedTasks = [...taskList.value];
 
-	sortedTasks.sort((x, y) => {
-		return x.is_complete - y.is_complete
-	});
+	if (taskFilter.value === 'completed') {
+		return taskList.value.filter(task => task.is_complete);
+	} else if (taskFilter.value === 'inProgress') {
+		return taskList.value.filter(task => !task.is_complete);
+	} else {
+		const sortedTasks = [...taskList.value];
 
-	return sortedTasks.sort((x, y) => {
-		return new Date(x.inserted_at) - Date(y.inserted_at)
-	})
+		sortedTasks.sort((x, y) => {
+			const dateX = new Date(x.inserted_at);
+			const dateY = new Date(y.inserted_at);
+			return dateY - dateX;
+		});
+
+		return sortedTasks.sort((x, y) => {
+			return x.is_complete - y.is_complete
+		});
+	}
+
+
 });
 
 function formatDate(timestamp) {
@@ -76,6 +96,10 @@ function formatDate(timestamp) {
 				<button class="add-task-btn" @click="addTask"><img src="../components/icons/icons8-plus-240.svg"
 						alt=""></button>
 			</div>
+			<div class="toggle-list-btns-container">
+				<button @click="showInProgress" class="toggle-list-btn-inprogress"><img src="../components/icons/in-progress-svgrepo-com-1.svg" alt=""><span>In Progress</span></button>
+				<button @click="showCompleted" class="toggle-list-btn-completed"><img src="../components/icons/complete-svgrepo-com.svg" alt=""><span>Completed</span></button>
+			</div>
 			<div class="task-list-container">
 				<ul class="list-task">
 					<li v-for="task in sortTasks" :key="task.id" class="individual-task">
@@ -84,7 +108,9 @@ function formatDate(timestamp) {
 								@change="markTask(task.is_complete, task.id)" :id="task.id"
 								class="task-complete-input styled-checkbox">
 						</div>
-						<div class="task-title-container"><span :class="['task-title', task.is_complete ? 'strike-through' : '']">{{ task.title }} </span></div>
+						<div class="task-title-container"><span
+								:class="['task-title', task.is_complete ? 'strike-through' : '']">{{ task.title }}
+							</span></div>
 						<div class="task-footer">
 							<div class="task-date-container"><span class="task-date">{{ formatDate(task.inserted_at)
 									}}</span></div>
@@ -126,9 +152,6 @@ p {
 
 .task-input {
 	width: 100%;
-	
-	/* display: inline; */
-	/* border: 1px solid blue; */
 }
 
 #taskName {
@@ -142,6 +165,41 @@ p {
 
 .add-task-btn img {
 	max-height: 30px;
+}
+
+.toggle-list-btns-container {
+	display: flex;
+	width: 100%;
+	/* border: 1px solid red; */
+}
+
+.toggle-list-btns-container button {
+	padding: 20px 20px;
+	border-radius: 15px;
+}
+
+.toggle-list-btn-inprogress, .toggle-list-btn-completed {
+	display: flex;
+	align-items: center;
+	width: 50%;
+}
+
+.toggle-list-btn-completed {
+	/* display: flex; */
+	/* align-items: center;
+	width: 50%; */
+	background-color: #47C96F;
+}
+
+.toggle-list-btn-inprogress img {
+	height: 30px;
+	margin-right: 10px;
+}
+
+.toggle-list-btn-completed img {
+	height: 26px;
+	margin-top: 2px;
+	margin-right: 10px;
 }
 
 .list-task {
