@@ -1,13 +1,15 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/userStore';
+import router from '@/router';
 const { signIn } = useAuthStore();
 
 const email = ref("");
 const password = ref("");
 
-const loginUser = () => {
-	signIn(email.value, password.value);
+const loginUser = async () => {
+	await signIn(email.value, password.value);
+	router.push('/loggedin');
 	email.value = "";
 	password.value = "";
 };
