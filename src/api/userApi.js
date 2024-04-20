@@ -18,9 +18,8 @@ export async function createAccount(email, password, firstName, lastName) {
     throw error
   }
 
-    console.log(data)
-    return data
-  
+  console.log(data)
+  return data
 }
 
 export async function login(email, password) {
@@ -33,12 +32,12 @@ export async function login(email, password) {
     console.log(error)
     alert(error)
     throw error
-  } 
+  }
 
-    console.log(data.user)
-    return data
-  
-} 
+  alert('Sign Up has been successful! Please verify your email before logging in. :)')
+  console.log(data.user)
+  return data
+}
 
 export async function seeCurrentUser() {
   const { data, error } = await supabase.auth.getSession()
@@ -46,11 +45,10 @@ export async function seeCurrentUser() {
   if (error) {
     console.log(error)
     return data.session
-  } 
+  }
 
-    console.log(data.session);
-    return data.session
-  
+  console.log(data.session)
+  return data.session
 }
 
 export async function logout() {
@@ -61,6 +59,5 @@ export async function logout() {
     throw error
   }
 
-    alert('Log out has been successful')
-  
+  alert('Log out has been successful')
 }

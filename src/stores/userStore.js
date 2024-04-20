@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('auth', () => {
       loading.value = true
       const userData = await seeCurrentUser();
       currentUser.value = userData.user
-      return currentUser.value
+      //return currentUser.value
     } catch (error) {
       errorAuth.value = error.message;
       console.log("This is an error on the seeCurrentUser function of userStore: ", error);

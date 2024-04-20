@@ -11,11 +11,12 @@
 :root {
   --vt-c-white: #ffffff;
   --vt-c-black: #181818;
+  --background-color: #f4f4f4;
 }
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
+  --color-background: var(--background-color);
   --color-text: var(--vt-c-black);
   --section-gap: 160px;
 }
