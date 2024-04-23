@@ -12,7 +12,6 @@ const { updateTask, updateComplete, deleteTask } = taskStore;
 const taskEditText = ref("");
 const taskEditing = ref(false);
 
-/* ---------------------------- */
 const startEditing = (task) => {
     taskEditing.value = true;
     taskEditText.value = task;
@@ -32,7 +31,6 @@ const finishEditing = async (taskID) => {
 const cancelEditing = () => {
     taskEditing.value = false;
 };
-/* -------------------- */
 
 async function markTask(complete, taskID) {
     let completeUpdate = !complete;
@@ -61,12 +59,9 @@ function formatDate(timestamp) {
     <li class="individual-task">
         <div class="task-header">
             <div class="task-title-container">
-                <!-- <span :class="['task-title', task.is_complete ? 'strike-through' : '']">{{ task.title }}
-							</span> -->
                 <template v-if="!taskEditing">
                     <span :class="['task-title', task.is_complete ? 'strike-through' : '']">{{ task.title
                         }}</span>
-                    <!-- <button @click="startEditing(task.title)">Edit</button> -->
                 </template>
                 <template v-else>
                     <input type="text" v-model="taskEditText" @keydown.enter="finishEditing(task.id)">
@@ -81,9 +76,6 @@ function formatDate(timestamp) {
                     }}</span>
             </div>
             <div class="task-buttons-container">
-                <!-- <button @click="editTask(task.id)" class="task-edit-btn">
-								<img src="../components/icons/icons8-edit-1.svg" alt="">
-							</button> -->
                 <template v-if="!taskEditing">
                     <button @click="startEditing(task.title)" class="task-edit-btn">
                         <img src="../components/icons/icons8-edit-1.svg" alt="">

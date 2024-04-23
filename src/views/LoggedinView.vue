@@ -11,13 +11,11 @@ const { seeCurrentUserStore } = useAuthStore();
 
 const taskStore = useTaskStore();
 const { tasks } = storeToRefs(taskStore);
-const { fetchAllTasks, insertTask} = taskStore;
+const { fetchAllTasks, insertTask } = taskStore;
 
 const taskName = ref("");
 const taskList = ref(tasks);
 const taskFilter = ref('all');
-/* const taskEditText = ref("");
-const taskEditing = ref(false); */
 
 onMounted(async () => {
 	await seeCurrentUserStore();
@@ -28,13 +26,6 @@ async function addTask() {
 	await insertTask(currentUser.value.id, taskName.value);
 	taskName.value = "";
 }
-
-/* async function editTask(taskID) {
-	await updateTask(taskName.value, taskID);
-	taskName.value = "";
-} */
-
-
 
 const showCompleted = () => {
 	taskFilter.value = "completed";
@@ -256,6 +247,4 @@ const incompletedTaskCount = computed(() => {
 	margin: 20px 0;
 	/* border: 1px solid green; */
 }
-
-
 </style>
