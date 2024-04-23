@@ -18,6 +18,7 @@ export async function createAccount(email, password, firstName, lastName) {
     throw error
   }
 
+  alert('Sign Up has been successful! Please verify your email before logging in. :)')
   console.log(data)
   return data
 }
@@ -34,7 +35,6 @@ export async function login(email, password) {
     throw error
   }
 
-  alert('Sign Up has been successful! Please verify your email before logging in. :)')
   console.log(data.user)
   return data
 }
