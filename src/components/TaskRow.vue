@@ -186,7 +186,8 @@ function formatDate(timestamp) {
 
 .task-edit-btn,
 .task-delete-btn {
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */
+    background-color: inherit;
     border-bottom: var(--background-color) 2px solid;
     border-radius: 0;
     transition: border 0.8s ease-in;

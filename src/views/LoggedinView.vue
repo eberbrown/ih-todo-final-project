@@ -35,6 +35,10 @@ const showInProgress = () => {
 	taskFilter.value = "inProgress";
 }
 
+const showAllTasks = () => {
+	taskFilter.value = "all";
+}
+
 const sortTasks = computed(() => {
 	const sortedTasks = [...taskList.value];
 
@@ -113,6 +117,7 @@ const incompletedTaskCount = computed(() => {
 				<TaskRow v-for="task in sortTasks" :key="task.id" :task="task">
 				</TaskRow>
 			</ul>
+			<button @click="showAllTasks" class="show-all-tasks-btn">Show all tasks</button>
 		</div>
 	</main>
 
@@ -241,10 +246,24 @@ const incompletedTaskCount = computed(() => {
 	margin-right: 10px;
 }
 
+.task-list-container {
+	display: flex;
+	flex-direction: column;
+}
+
 .list-task {
 	list-style: none;
 	padding: 0;
-	margin: 20px 0;
+	margin: 20px 0 0 0;
 	/* border: 1px solid green; */
+}
+
+.show-all-tasks-btn {
+	text-align: right;
+	align-self: flex-end;
+	background-color: inherit;
+	color: #1d6bf5;
+	padding: 0;
+	font-weight: 400;
 }
 </style>
