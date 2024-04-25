@@ -1,11 +1,13 @@
 <script setup>
-import NavBar from "./components/NavBar.vue";
+/* import NavBar from "./components/NavBar.vue"; */
+import NavBarCopy from "./components/NavBarCopy.vue";
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <NavBar />
+      <!-- <NavBar /> -->
+      <NavBarCopy />
     </div>
   </header>
 
@@ -14,31 +16,7 @@ import NavBar from "./components/NavBar.vue";
 
 <style scoped>
 header {
-  width: 100%;
+  width: 100vw;
 }
 
-nav {
-  /* width: 100%; */
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
 </style>

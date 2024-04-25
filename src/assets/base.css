@@ -70,7 +70,7 @@ button {
   color: #ffffff;
   font-weight: bold;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -79,8 +79,10 @@ input {
   font-size: 1.5rem;
   background-color: none;
   color: #1D6BF5;
-  border: 1px solid #44546F;
   margin: 2px 0;
+  border: 2px solid #44546f;
+  border-radius: 14px;
+  box-shadow: 2px 6px 0px 0px rgba(0, 0, 0, 0.68);
 }
 
 input::placeholder {

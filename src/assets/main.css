@@ -10,18 +10,21 @@
 
 body {
   display: flex;
-  place-items: center;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
 }
 
 #app {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   max-width: 1280px;
+  min-height: 100vh;
   margin: 0 auto;
   font-weight: normal;
 }
+
 
 a {
   text-decoration: none;

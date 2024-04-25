@@ -194,7 +194,6 @@ const incompletedTaskCount = computed(() => {
 
 #taskName {
 	width: 100%;
-	border-radius: 3px;
 }
 
 .add-task-btn {

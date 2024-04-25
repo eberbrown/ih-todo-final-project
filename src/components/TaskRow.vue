@@ -104,7 +104,7 @@ function formatDate(timestamp) {
     margin: 15px 0;
     padding-bottom: 10px;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 17px;
     /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
     border: 2px solid #44546f;
     box-shadow: 2px 6px 0px 0px rgba(0, 0, 0, 0.68);

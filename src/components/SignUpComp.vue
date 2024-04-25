@@ -48,6 +48,7 @@ const createAccountUser = () => {
 
 .inputContainer {
     width: 100%;
+    margin-top: 12px;
 }
 
 .inputContainer input {
@@ -56,7 +57,7 @@ const createAccountUser = () => {
 
 .sign-in-form-btn {
 	width: 100%;
-    margin: 0;
+    margin-top: 32px;
     padding: auto;
 }
 

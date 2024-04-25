@@ -41,9 +41,11 @@ function showSignUp() {
 			<img src="../components/icons/TaskTrackCSV.svg" alt="" class="home-view-logo">
 		</div>
 	</main>
+	
 </template>
 
 <style scoped>
+
 .home-container {
 	width: 100%;
 	padding: 35px 20px;
@@ -51,6 +53,8 @@ function showSignUp() {
 	-moz-box-shadow: 5px 5px 12px 0px rgba(0, 0, 0, 0.19);
 	box-shadow: 5px 5px 12px 0px rgba(0, 0, 0, 0.19);
 	border-radius: 5px;
+	justify-self: center;
+	margin-top: 30%;
 }
 
 nav {
