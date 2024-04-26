@@ -59,6 +59,24 @@ const sortTasks = computed(() => {
 	}
 });
 
+/* const sortTasks = computed(() => {
+	const allTasks = [...taskList.value];
+
+	allTasks.sort((x, y) => {
+		const dateX = new Date(x.inserted_at);
+		const dateY = new Date(y.inserted_at);
+		return dateY - dateX;
+	});
+
+	const completedTasks = allTasks.filter(task => task.is_complete);
+	const incompleteTasks = allTasks.filter(task => !task.is_complete);
+
+	return {
+		completed: completedTasks,
+		incomplete: incompleteTasks
+	};
+}); */
+
 const completedTaskCount = computed(() => {
 	return taskList.value.filter(task => task.is_complete).length;
 })
@@ -112,6 +130,29 @@ const incompletedTaskCount = computed(() => {
 				<span>Completed</span>
 			</button>
 		</div>
+		<!-- <div class="task-list-container">
+			<template v-if="taskFilter === 'completed'">
+				<ul class="list-task">
+					<TaskRow v-for="task in sortTasks.completed" :key="task.id" :task="task">
+					</TaskRow>
+				</ul>
+			</template>
+<template v-if="taskFilter === 'inProgress'">
+				<ul class="list-task">
+					<TaskRow v-for="task in sortTasks.incomplete" :key="task.id" :task="task">
+					</TaskRow>
+				</ul>
+			</template>
+<template v-if="taskFilter === 'all'">
+				<ul class="list-task-all">
+					<div><TaskRow v-for="task in sortTasks.incomplete" :key="task.id" :task="task">
+					</TaskRow></div>
+					<div><TaskRow v-for="task in sortTasks.completed" :key="task.id" :task="task">
+					</TaskRow></div>
+				</ul>
+			</template>
+<button @click="showAllTasks" class="show-all-tasks-btn">Show all tasks</button>
+</div> -->
 		<div class="task-list-container">
 			<ul class="list-task">
 				<TaskRow v-for="task in sortTasks" :key="task.id" :task="task">
@@ -127,6 +168,7 @@ const incompletedTaskCount = computed(() => {
 <style scoped>
 .loggedin-view-container {
 	width: 100%;
+	margin-top: 20px;
 	/* border: 1px solid red; */
 }
 
@@ -221,6 +263,7 @@ const incompletedTaskCount = computed(() => {
 .toggle-list-btn-completed {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	width: 50%;
 }
 
@@ -253,9 +296,25 @@ const incompletedTaskCount = computed(() => {
 .list-task {
 	list-style: none;
 	padding: 0;
-	margin: 20px 0 0 0;
-	/* border: 1px solid green; */
+	margin: 5px 0 0 0;
+	justify-content: center;
 }
+
+/* .list-task-all {
+	list-style: none;
+	padding: 0;
+	margin: 5px 0 0 0;
+	display: flex;
+	justify-content: center;
+}
+
+.list-task-all div:first-child {
+	margin-right: 15px;
+}
+
+.list-task-all div:last-child {
+	margin-left: 15px;
+} */
 
 .show-all-tasks-btn {
 	text-align: right;
@@ -265,4 +324,45 @@ const incompletedTaskCount = computed(() => {
 	padding: 0;
 	font-weight: 400;
 }
+
+@media screen and (min-width: 575px) {
+
+	.toggle-list-btn-inprogress,
+	.toggle-list-btn-completed {
+		justify-content: flex-start;
+	}
+
+	/* .list-task-all {
+		flex-direction: column;
+	}
+
+	.list-task-all div:first-child {
+		margin-right: 0px;
+	}
+
+	.list-task-all div:last-child {
+		margin-left: 0px;
+	} */
+}
+
+@media screen and (min-width: 767px) {
+	.toggle-list-btn-inprogress,
+	.toggle-list-btn-completed {
+		justify-content: center;
+	}
+}
+
+@media screen and (min-width: 991px) {}
+
+@media screen and (min-width: 1115px) {
+	#app {
+		width: 680px;
+	}
+
+	
+}
+
+@media screen and (min-width: 1400px) {}
+
+@media screen and (min-width: 1440px) {}
 </style>

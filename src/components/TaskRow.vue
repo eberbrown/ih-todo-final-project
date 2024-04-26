@@ -103,6 +103,7 @@ function formatDate(timestamp) {
     min-height: 120px;
     margin: 15px 0;
     padding-bottom: 10px;
+    min-width: 325px;
     width: 100%;
     border-radius: 17px;
     /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */

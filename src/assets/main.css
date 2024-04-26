@@ -43,22 +43,28 @@ a {
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
-@media screen and (min-width: 575px) {
+@media screen and (min-width: 350px) {
   #app {
     width: 325px;
   }
 }
 
+@media screen and (min-width: 575px) {
+}
+
 @media screen and (min-width: 767px) {
+  #app {
+    width: 500px;
+  }
 }
 
 @media screen and (min-width: 991px) {
 }
 
 @media screen and (min-width: 1115px) {
-  /* #app {
-    width: 600px;
-  } */
+  #app {
+    width: 680px;
+  }
 }
 
 @media screen and (min-width: 1400px) {
