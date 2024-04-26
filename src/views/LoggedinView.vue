@@ -325,6 +325,10 @@ const incompletedTaskCount = computed(() => {
 	font-weight: 400;
 }
 
+/*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
+/*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
+/*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
+
 @media screen and (min-width: 575px) {
 
 	.toggle-list-btn-inprogress,

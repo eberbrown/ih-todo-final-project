@@ -54,7 +54,7 @@ function showSignUp() {
 	box-shadow: 5px 5px 12px 0px rgba(0, 0, 0, 0.19);
 	border-radius: 5px;
 	justify-self: center;
-	margin-top: 30%;
+	margin-top: 12%;
 }
 
 nav {
@@ -114,15 +114,33 @@ hr {
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
-@media screen and (min-width: 575px) {}
+@media screen and (min-width: 350px) {
+  .home-container {
+	max-width: 325px;
+}
+}
 
-@media screen and (min-width: 767px) {}
+@media screen and (min-width: 575px) {
+}
 
-@media screen and (min-width: 991px) {}
+@media screen and (min-width: 767px) {
+  #app {
+    width: 325px;
+  }
+}
 
-@media screen and (min-width: 1115px) {}
+@media screen and (min-width: 991px) {
+}
 
-@media screen and (min-width: 1400px) {}
+@media screen and (min-width: 1115px) {
+	#app {
+    width: 325px;
+  }
+}
 
-@media screen and (min-width: 1440px) {}
+@media screen and (min-width: 1400px) {
+}
+
+@media screen and (min-width: 1440px) {
+}
 </style>
