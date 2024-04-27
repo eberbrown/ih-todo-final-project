@@ -3,7 +3,10 @@ import { onMounted, ref, computed } from 'vue';
 import { useAuthStore } from "@/stores/userStore.js";
 import { useTaskStore } from "@/stores/taskStore.js";
 import { storeToRefs } from 'pinia';
-import TaskRow from "@/components/TaskRow.vue"
+import TaskRow from "@/components/TaskRow.vue";
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const userStore = useAuthStore();
 const { currentUser } = storeToRefs(userStore);
@@ -85,13 +88,16 @@ const incompletedTaskCount = computed(() => {
 	return taskList.value.filter(task => !task.is_complete).length;
 });
 
+const showProfile = () => {
+  router.push('/profile')
+};
 
 </script>
 
 <template>
 	<main class="loggedin-view-container">
 		<div class="user-info-container">
-			<div class="user-info-sub-container">
+			<div class="user-info-sub-container" @click="showProfile">
 				<div class="user-avatar-container">
 					<img src="../components/icons/gamer.png" alt="user avatar image" class="user-avatar">
 				</div>
@@ -187,12 +193,14 @@ const incompletedTaskCount = computed(() => {
 .user-avatar {
 	max-height: 60px;
 	margin-right: 10px;
+	cursor: pointer;
 }
 
 .user-name-container p:first-child,
 .user-name-container p:first-child span {
 	font-weight: bold;
 	font-size: 2.2rem;
+	cursor: pointer;
 }
 
 .user-name-container p:last-child {

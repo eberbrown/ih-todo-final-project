@@ -41,29 +41,25 @@ const logOut = async () => {
             <button @click="logOut"> Logout </button>
           </div>
         </div>
-       
-          <transition name="slide">
-            <div class="menu-items" v-show="isMenuOpen">
-          <li>
-            <RouterLink to="/">Home</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/loggedin">Dashboard</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/profile">Profile</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="#">portfolio</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="#">contact</RouterLink>
-          </li>
-        </div>
-          </transition>
-       
-        
-
+        <transition name="slide">
+          <div class="menu-items" v-show="isMenuOpen">
+            <li>
+              <RouterLink to="/">Home</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/loggedin">Dashboard</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="/profile">Profile</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="#">portfolio</RouterLink>
+            </li>
+            <li>
+              <RouterLink to="#">contact</RouterLink>
+            </li>
+          </div>
+        </transition>
       </div>
     </div>
   </nav>
@@ -175,7 +171,8 @@ button {
   box-shadow: 2px 6px 0px 0px rgba(0, 0, 0, 0.68);
 }
 
-.slide-enter-active, .slide-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: all 0.3s ease-in-out;
 }
 
