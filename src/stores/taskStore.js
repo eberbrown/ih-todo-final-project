@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { retrieveAllTasks, createTask, updateParticularTask, eraseTask } from '@/api/taskApi'
+import { retrieveAllTasks, createTask, updateParticularTask, eraseTask, updateParticularTaskTry } from '@/api/taskApi'
 
 export const useTaskStore = defineStore('task', () => {
   const tasks = ref([])
@@ -73,6 +73,24 @@ export const useTaskStore = defineStore('task', () => {
     }
   }
 
+  async function updateStatus(taskStatus, updateColumn, taskID) {
+    try {
+      loadingTasks.value = true
+      
+      await updateParticularTaskTry(taskStatus, updateColumn, taskID)
+      for (const task of tasks.value) {
+        if (task.id === taskID) {
+          task.status = taskStatus
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      errorTask.value = error.message
+    } finally {
+      loadingTasks.value = false
+    }
+  }
+
   async function deleteTask(taskID) {
     try {
       loadingTasks.value = true
@@ -92,6 +110,7 @@ export const useTaskStore = defineStore('task', () => {
     insertTask,
     updateTask,
     updateComplete,
+    updateStatus,
     deleteTask
   }
 })

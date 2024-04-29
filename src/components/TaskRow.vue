@@ -7,10 +7,11 @@ const props = defineProps({
 });
 
 const taskStore = useTaskStore();
-const { updateTask, updateComplete, deleteTask } = taskStore;
+const { updateTask, updateComplete, updateStatus, deleteTask } = taskStore;
 
 const taskEditText = ref("");
 const taskEditing = ref(false);
+const taskStatus = ref("");
 
 const startEditing = (task) => {
     taskEditing.value = true;
@@ -37,6 +38,10 @@ async function markTask(complete, taskID) {
     await updateComplete(completeUpdate, taskID);
 }
 
+async function changeStatus(taskStatus, taskID) {
+    await updateStatus(taskStatus, 'status' ,taskID);
+}
+
 async function removeTask(taskID) {
     await deleteTask(taskID);
 }
@@ -52,6 +57,8 @@ function formatDate(timestamp) {
 
     return formattedDate;
 }
+
+
 
 </script>
 
@@ -74,8 +81,12 @@ function formatDate(timestamp) {
         </div>
         <div class="task-footer">
             <div class="task-date-container">
-                <span class="task-date">{{ formatDate(task.inserted_at)
-                    }}</span>
+                <span class="task-date">{{ formatDate(task.inserted_at) }}</span>
+                <fieldset>
+                    <input type="radio" :name="`status` + task.id" value="backlog" @change="changeStatus('backlog', task.id)" v-model="taskStatus" :id="task.id" :checked="task.status === 'backlog'">
+                    <input type="radio" :name="`status` + task.id" value="inprogress" @change="changeStatus('inprogress', task.id)" v-model="taskStatus" :id="task.id" :checked="task.status === 'inprogress'">
+                    <input type="radio" :name="`status` + task.id" value="completed" @change="changeStatus('completed', task.id)" v-model="taskStatus" :id="task.id" :checked="task.status === 'completed'">
+                </fieldset>
             </div>
             <div class="task-buttons-container">
                 <template v-if="!taskEditing">
@@ -101,6 +112,16 @@ function formatDate(timestamp) {
 
 
 <style scoped>
+
+fieldset {
+    border: none;
+}
+
+fieldset input {
+    box-shadow: none;
+    margin-right: 3px;
+}
+
 .individual-task {
     min-height: 120px;
     margin: 15px 0;
@@ -137,6 +158,7 @@ function formatDate(timestamp) {
 
 .checkbox-container {
     margin-top: 15px;
+    cursor: pointer;
 }
 
 .strike-through {

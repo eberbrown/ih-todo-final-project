@@ -49,6 +49,24 @@ export const updateParticularTask = async (taskName, taskComplete, taskID) => {
   console.log('Task updated correctly')
 }
 
+export const updateParticularTaskTry = async (value, updateColumn, taskID) => {
+  const updateObject = {}
+  if (updateColumn === 'status') {
+    updateObject.status = value
+  }
+
+  const { error } = await supabase.from('tasks').update(updateObject).eq('id', taskID)
+  console.log(value, updateColumn, taskID);
+  if (error) {
+    console.log('Is this the error ----> ', error)
+    throw error
+  }
+
+  console.log('Task updated correctly. Status change!')
+}
+
+
+
 export const eraseTask = async (taskID) => {
   const { error } = await supabase.from('tasks').delete().eq('id', taskID)
 
