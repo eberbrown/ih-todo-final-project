@@ -130,6 +130,7 @@ const showDashboard = () => {
 	padding: 8px 15px;
 	border-radius: 7px;
 	background-color: rgb(233, 233, 233);
+	text-align: center;
 }
 
 .profile-info .user-title-container span {

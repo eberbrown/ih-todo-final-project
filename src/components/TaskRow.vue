@@ -67,8 +67,10 @@ function formatDate(timestamp) {
                     <input type="text" v-model="taskEditText" @keydown.enter="finishEditing(task.id)">
                 </template>
             </div>
-            <input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
-                :id="task.id" class="styled-checkbox">
+            <div class="checkbox-container">
+                <input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
+                    :id="task.id" class="styled-checkbox">
+            </div>
         </div>
         <div class="task-footer">
             <div class="task-date-container">
@@ -126,10 +128,15 @@ function formatDate(timestamp) {
 .task-title-container {
     margin: 15px 10px 15px 12px;
     max-width: 80%;
+    border: 1px solid red;
 }
 
 .task-title {
     font-size: 1.5rem;
+}
+
+.checkbox-container {
+    margin-top: 15px;
 }
 
 .strike-through {
@@ -171,7 +178,6 @@ function formatDate(timestamp) {
 .styled-checkbox:hover {
     border-color: white;
 }
-
 
 .task-footer {
     display: flex;

@@ -187,7 +187,6 @@ const showProfile = () => {
 
 .user-info-sub-container {
 	display: flex;
-	/* align-items: center; */
 }
 
 .user-avatar {

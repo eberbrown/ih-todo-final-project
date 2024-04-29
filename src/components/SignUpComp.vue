@@ -21,20 +21,16 @@ const createAccountUser = () => {
 
 <template>
         <div class="inputContainer">
-            <!-- <label for="firstName"> First Name </label> -->
             <input type="string" id="firstName" v-model="firstName" placeholder="First Name">
         </div>
         <div class="inputContainer">
-            <!-- <label for="lastName"> Last Name </label> -->
             <input type="string" id="lastName" v-model="lastName" placeholder="Last Name">
         </div>
         <div class="inputContainer">
-            <!-- <label for="email"> Email: </label> -->
             <input type="email" id="email" v-model="email" placeholder="Email">
         </div>
 
         <div class="inputContainer">
-            <!-- <label for="password"> Password: </label> -->
             <input type="password" id="password" v-model="password" placeholder="Password">
         </div>
 
