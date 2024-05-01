@@ -7,7 +7,7 @@ const props = defineProps({
 });
 
 const taskStore = useTaskStore();
-const { updateTask, updateComplete, updateStatus, deleteTask } = taskStore;
+const { updateTask, updateStatus, deleteTask } = taskStore;
 
 const taskEditText = ref("");
 const taskEditing = ref(false);
@@ -33,13 +33,8 @@ const cancelEditing = () => {
     taskEditing.value = false;
 };
 
-async function markTask(complete, taskID) {
-    let completeUpdate = !complete;
-    await updateComplete(completeUpdate, taskID);
-}
-
 async function changeStatus(taskStatus, taskID) {
-    await updateStatus(taskStatus, 'status' ,taskID);
+    await updateStatus(taskStatus, 'status', taskID);
 }
 
 async function removeTask(taskID) {
@@ -58,8 +53,6 @@ function formatDate(timestamp) {
     return formattedDate;
 }
 
-
-
 </script>
 
 <template>
@@ -75,18 +68,20 @@ function formatDate(timestamp) {
                 </template>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" :checked="task.is_complete" @change="markTask(task.is_complete, task.id)"
-                    :id="task.id" class="styled-checkbox">
+                <input type="radio" :name="`status` + task.id" value="backlog"
+                    @change="changeStatus('backlog', task.id)" v-model="taskStatus" :id="task.id"
+                    :checked="task.status === 'backlog'" class="styled-checkbox backlog-checkbox">
+                <input type="radio" :name="`status` + task.id" value="inprogress"
+                    @change="changeStatus('inprogress', task.id)" v-model="taskStatus" :id="task.id"
+                    :checked="task.status === 'inprogress'" class="styled-checkbox inprogress-checkbox">
+                <input type="radio" :name="`status` + task.id" value="completed"
+                    @change="changeStatus('completed', task.id)" v-model="taskStatus" :id="task.id"
+                    :checked="task.status === 'completed'" class="styled-checkbox completed-checkbox">
             </div>
         </div>
         <div class="task-footer">
             <div class="task-date-container">
                 <span class="task-date">{{ formatDate(task.inserted_at) }}</span>
-                <fieldset>
-                    <input type="radio" :name="`status` + task.id" value="backlog" @change="changeStatus('backlog', task.id)" v-model="taskStatus" :id="task.id" :checked="task.status === 'backlog'">
-                    <input type="radio" :name="`status` + task.id" value="inprogress" @change="changeStatus('inprogress', task.id)" v-model="taskStatus" :id="task.id" :checked="task.status === 'inprogress'">
-                    <input type="radio" :name="`status` + task.id" value="completed" @change="changeStatus('completed', task.id)" v-model="taskStatus" :id="task.id" :checked="task.status === 'completed'">
-                </fieldset>
             </div>
             <div class="task-buttons-container">
                 <template v-if="!taskEditing">
@@ -112,7 +107,6 @@ function formatDate(timestamp) {
 
 
 <style scoped>
-
 fieldset {
     border: none;
 }
@@ -149,7 +143,7 @@ fieldset input {
 .task-title-container {
     margin: 15px 10px 15px 12px;
     max-width: 80%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .task-title {
@@ -188,11 +182,21 @@ fieldset input {
     left: 4px;
     top: 0px;
     font-size: 2rem;
-    color: #47c96f;
+    /* color: #47c96f; */
     transition: border 0.8s ease-in;
 }
 
-.styled-checkbox:checked {
+.backlog-checkbox:checked {
+    border-color: #F5C81D;
+    background-color: #F5C81D;
+}
+
+.inprogress-checkbox:checked {
+    border-color: #1D6BF5;
+    background-color: #1D6BF5;
+}
+
+.completed-checkbox:checked {
     border-color: #47c96f;
     background-color: #47c96f;
 }
@@ -235,4 +239,47 @@ fieldset input {
 .task-delete-btn img {
     height: 2.5rem;
 }
+
+/*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
+/*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
+/*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
+@media screen and (max-width: 350px) {
+    .individual-task {
+        min-width: auto;
+    }
+
+    .styled-checkbox {
+        margin-right: 10px;
+    }
+
+    .task-title-container {
+        max-width: 60%;
+    }
+}
+
+@media screen and (min-width: 350px) {
+    .task-title-container {
+        max-width: 60%;
+    }
+}
+
+@media screen and (min-width: 575px) {}
+
+@media screen and (min-width: 767px) {
+    .task-title-container {
+        max-width: 70%;
+    }
+}
+
+@media screen and (min-width: 991px) {}
+
+@media screen and (min-width: 1115px) {
+    .task-title-container {
+        max-width: 80%;
+    }
+}
+
+@media screen and (min-width: 1400px) {}
+
+@media screen and (min-width: 1440px) {}
 </style>

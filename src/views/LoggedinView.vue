@@ -35,7 +35,11 @@ const showCompleted = () => {
 }
 
 const showInProgress = () => {
-	taskFilter.value = "inProgress";
+	taskFilter.value = "inprogress";
+}
+
+const showBacklog = () => {
+	taskFilter.value = "backlog";
 }
 
 const showAllTasks = () => {
@@ -52,44 +56,42 @@ const sortTasks = computed(() => {
 	});
 
 	if (taskFilter.value === 'completed') {
-		return sortedTasks.filter(task => task.is_complete);
-	} else if (taskFilter.value === 'inProgress') {
-		return sortedTasks.filter(task => !task.is_complete);
+		return sortedTasks.filter(task => task.status === "completed");
+	} else if (taskFilter.value === 'inprogress') {
+		return sortedTasks.filter(task => task.status === "inprogress");
+	} else if (taskFilter.value === 'backlog') {
+		return sortedTasks.filter(task => task.status === "backlog");
 	} else {
-		return sortedTasks.sort((x, y) => {
-			return x.is_complete - y.is_complete
+		return sortedTasks.sort((task1, task2) => {
+			const statusOrder = { "backlog": 1, "inprogress": 2, "completed": 3 };
+			const statusOrderTask1 = statusOrder[task1.status];
+			const statusOrderTask2 = statusOrder[task2.status];
+
+			if (statusOrderTask1 !== statusOrderTask2) {
+				return statusOrderTask1 - statusOrderTask2;
+			} else {
+				const dateX = new Date(task1.inserted_at);
+				const dateY = new Date(task2.inserted_at);
+				return dateY - dateX;
+			}
 		});
 	}
 });
 
-/* const sortTasks = computed(() => {
-	const allTasks = [...taskList.value];
-
-	allTasks.sort((x, y) => {
-		const dateX = new Date(x.inserted_at);
-		const dateY = new Date(y.inserted_at);
-		return dateY - dateX;
-	});
-
-	const completedTasks = allTasks.filter(task => task.is_complete);
-	const incompleteTasks = allTasks.filter(task => !task.is_complete);
-
-	return {
-		completed: completedTasks,
-		incomplete: incompleteTasks
-	};
-}); */
-
 const completedTaskCount = computed(() => {
-	return taskList.value.filter(task => task.is_complete).length;
+	return taskList.value.filter(task => task.status === "completed").length;
 })
 
-const incompletedTaskCount = computed(() => {
-	return taskList.value.filter(task => !task.is_complete).length;
+const inprogressTaskCount = computed(() => {
+	return taskList.value.filter(task => task.status === "inprogress").length;
+});
+
+const backlogTaskCount = computed(() => {
+	return taskList.value.filter(task => task.status === "backlog").length;
 });
 
 const showProfile = () => {
-  router.push('/profile')
+	router.push('/profile')
 };
 
 </script>
@@ -110,8 +112,12 @@ const showProfile = () => {
 			</div>
 			<div class="user-tasks-overview-container">
 				<p>
+					<img src="../components/icons/backlog-svgrepo-com-2.svg" alt="icon for incomplete tasks"
+						style='max-height:15px;'>: <span>{{ backlogTaskCount }}</span>
+				</p>
+				<p>
 					<img src="../components/icons/in-progress-svgrepo-com-2.svg" alt="icon for incomplete tasks"
-						style='max-height:15px;'>: <span>{{ incompletedTaskCount }}</span>
+						style='max-height:15px;'>: <span>{{ inprogressTaskCount }}</span>
 				</p>
 				<p>
 					<img src="../components/icons/complete-svgrepo-com-2.svg" alt="icon for complete tasks"
@@ -126,39 +132,19 @@ const showProfile = () => {
 			</button>
 		</div>
 		<div class="toggle-list-btns-container">
+			<button @click="showBacklog" class="toggle-list-btn-backlog">
+				<img src="../components/icons/backlog-svgrepo-com.svg" alt="icon for incomplete tasks">
+				<span>Backlog</span>
+			</button>
 			<button @click="showInProgress" class="toggle-list-btn-inprogress">
 				<img src="../components/icons/in-progress-svgrepo-com-1.svg" alt="icon for incomplete tasks">
-				<span>In
-					Progress</span>
+				<span>In Progress</span>
 			</button>
 			<button @click="showCompleted" class="toggle-list-btn-completed">
 				<img src="../components/icons/complete-svgrepo-com.svg" alt="icon for complete tasks">
 				<span>Completed</span>
 			</button>
 		</div>
-		<!-- <div class="task-list-container">
-			<template v-if="taskFilter === 'completed'">
-				<ul class="list-task">
-					<TaskRow v-for="task in sortTasks.completed" :key="task.id" :task="task">
-					</TaskRow>
-				</ul>
-			</template>
-<template v-if="taskFilter === 'inProgress'">
-				<ul class="list-task">
-					<TaskRow v-for="task in sortTasks.incomplete" :key="task.id" :task="task">
-					</TaskRow>
-				</ul>
-			</template>
-<template v-if="taskFilter === 'all'">
-				<ul class="list-task-all">
-					<div><TaskRow v-for="task in sortTasks.incomplete" :key="task.id" :task="task">
-					</TaskRow></div>
-					<div><TaskRow v-for="task in sortTasks.completed" :key="task.id" :task="task">
-					</TaskRow></div>
-				</ul>
-			</template>
-<button @click="showAllTasks" class="show-all-tasks-btn">Show all tasks</button>
-</div> -->
 		<div class="task-list-container">
 			<ul class="list-task">
 				<TaskRow v-for="task in sortTasks" :key="task.id" :task="task">
@@ -226,6 +212,10 @@ const showProfile = () => {
 	margin-right: 10px;
 }
 
+.user-tasks-overview-container p:last-child {
+	margin-left: 10px;
+}
+
 .user-tasks-overview-container p span {
 	font-size: 1.3rem;
 	margin-left: 2px;
@@ -267,17 +257,22 @@ const showProfile = () => {
 }
 
 .toggle-list-btn-inprogress,
-.toggle-list-btn-completed {
+.toggle-list-btn-completed,
+.toggle-list-btn-backlog {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 50%;
+	width: 33.33%;
 }
 
 .toggle-list-btns-container span {
 	font-size: 1.3rem;
 	font-weight: 600;
 	letter-spacing: 0.2px;
+}
+
+.toggle-list-btn-backlog {
+	background-color: #F5C81D;
 }
 
 .toggle-list-btn-completed {
@@ -295,6 +290,12 @@ const showProfile = () => {
 	margin-right: 10px;
 }
 
+.toggle-list-btn-backlog img {
+	height: 26px;
+	margin-top: 2px;
+	margin-right: 10px;
+}
+
 .task-list-container {
 	display: flex;
 	flex-direction: column;
@@ -306,22 +307,6 @@ const showProfile = () => {
 	margin: 5px 0 0 0;
 	justify-content: center;
 }
-
-/* .list-task-all {
-	list-style: none;
-	padding: 0;
-	margin: 5px 0 0 0;
-	display: flex;
-	justify-content: center;
-}
-
-.list-task-all div:first-child {
-	margin-right: 15px;
-}
-
-.list-task-all div:last-child {
-	margin-left: 15px;
-} */
 
 .show-all-tasks-btn {
 	text-align: right;
@@ -335,42 +320,87 @@ const showProfile = () => {
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
-
-@media screen and (min-width: 575px) {
-
-	.toggle-list-btn-inprogress,
-	.toggle-list-btn-completed {
-		justify-content: flex-start;
+@media screen and (max-width: 350px) {
+	.toggle-list-btns-container span {
+		display: none;
 	}
 
-	/* .list-task-all {
-		flex-direction: column;
-	}
-
-	.list-task-all div:first-child {
+	.toggle-list-btn-inprogress img {
 		margin-right: 0px;
 	}
 
-	.list-task-all div:last-child {
-		margin-left: 0px;
-	} */
+	.toggle-list-btn-completed img {
+		margin-right: 0px;
+	}
+
+	.toggle-list-btn-backlog img {
+		margin-right: 0px;
+	}
+
+	/* -------------- */
+	.user-tasks-overview-container {
+	padding: 10px 10px;
 }
 
+.user-tasks-overview-container p {
+	font-size: 1rem;
+}
+
+.user-tasks-overview-container p:first-child {
+	margin-right: 5px;
+}
+
+.user-tasks-overview-container p:last-child {
+	margin-left: 5px;
+}
+
+.user-tasks-overview-container p span {
+	font-size: 1.2rem;
+	margin-left: 2px;
+}
+
+.user-name-container span:last-child {
+	display: none;
+}
+	/* -------------- */
+}
+
+@media screen and (min-width: 350px) {
+
+	.toggle-list-btns-container span {
+		display: none;
+	}
+
+	.toggle-list-btn-inprogress img {
+		margin-right: 0px;
+	}
+
+	.toggle-list-btn-completed img {
+		margin-right: 0px;
+	}
+
+	.toggle-list-btn-backlog img {
+		margin-right: 0px;
+	}
+
+}
+
+@media screen and (min-width: 575px) {}
+
 @media screen and (min-width: 767px) {
-	.toggle-list-btn-inprogress,
-	.toggle-list-btn-completed {
-		justify-content: center;
+
+	.toggle-list-btns-container img {
+		margin-right: 10px;
+	}
+
+	.toggle-list-btns-container span {
+		display: inline-block;
 	}
 }
 
 @media screen and (min-width: 991px) {}
 
 @media screen and (min-width: 1115px) {
-	#app {
-		width: 680px;
-	}
-
-	
 }
 
 @media screen and (min-width: 1400px) {}

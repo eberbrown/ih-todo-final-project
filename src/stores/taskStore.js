@@ -56,23 +56,6 @@ export const useTaskStore = defineStore('task', () => {
     }
   }
 
-  async function updateComplete(taskComplete, taskID) {
-    try {
-      loadingTasks.value = true
-      await updateParticularTask(undefined, taskComplete, taskID)
-      for (const task of tasks.value) {
-        if (task.id === taskID) {
-          task.is_complete = taskComplete
-        }
-      }
-    } catch (error) {
-      console.log(error)
-      errorTask.value = error.message
-    } finally {
-      loadingTasks.value = false
-    }
-  }
-
   async function updateStatus(taskStatus, updateColumn, taskID) {
     try {
       loadingTasks.value = true
@@ -109,7 +92,6 @@ export const useTaskStore = defineStore('task', () => {
     fetchAllTasks,
     insertTask,
     updateTask,
-    updateComplete,
     updateStatus,
     deleteTask
   }

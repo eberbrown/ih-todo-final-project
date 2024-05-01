@@ -43,6 +43,14 @@ a {
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
 /*  ------------------------------- MEDIA QUERIES ------------------------->>>>> */
+@media screen and (max-width: 350px) {
+  #app {
+    width: 300px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
 @media screen and (min-width: 350px) {
   #app {
     width: 325px;

@@ -23,11 +23,11 @@ onMounted(async () => {
 });
 
 const completedTaskCount = computed(() => {
-	return taskList.value.filter(task => task.is_complete).length;
+	return taskList.value.filter(task => task.status === "completed").length;
 })
 
 const incompletedTaskCount = computed(() => {
-	return taskList.value.filter(task => !task.is_complete).length;
+	return taskList.value.filter(task => task.status === "inprogress").length + taskList.value.filter(task => task.status === "backlog").length;
 });
 
 const showDashboard = () => {
