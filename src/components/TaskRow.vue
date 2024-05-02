@@ -60,11 +60,13 @@ function formatDate(timestamp) {
         <div class="task-header">
             <div class="task-title-container">
                 <template v-if="!taskEditing">
-                    <span :class="['task-title', task.is_complete ? 'strike-through' : '']">{{ task.title
+                    <span :class="['task-title', task.status === 'completed' ? 'strike-through' : '']">{{ task.title
                         }}</span>
                 </template>
                 <template v-else>
-                    <input type="text" v-model="taskEditText" @keydown.enter="finishEditing(task.id)">
+                    <!-- <input type="text" v-model="taskEditText" @keydown.enter="finishEditing(task.id)"> -->
+                    <textarea name="editarea" id="editTaskArea" v-model="taskEditText"
+                        @keydown.enter="finishEditing(task.id)"></textarea>
                 </template>
             </div>
             <div class="checkbox-container">
@@ -144,6 +146,11 @@ fieldset input {
     margin: 15px 10px 15px 12px;
     max-width: 80%;
     /* border: 1px solid red; */
+}
+
+#editTaskArea {
+    height: 8em;
+    width: 52em;
 }
 
 .task-title {
@@ -255,11 +262,25 @@ fieldset input {
     .task-title-container {
         max-width: 60%;
     }
+
+    #editTaskArea {
+        height: 8em;
+        width: 17em;
+    }
 }
 
 @media screen and (min-width: 350px) {
     .task-title-container {
         max-width: 60%;
+    }
+
+    .styled-checkbox {
+        margin-right: 10px;
+    }
+
+    #editTaskArea {
+        height: 8em;
+        width: 18em;
     }
 }
 
@@ -269,6 +290,15 @@ fieldset input {
     .task-title-container {
         max-width: 70%;
     }
+
+    .styled-checkbox {
+        margin-right: 15px;
+    }
+
+    #editTaskArea {
+        height: 8em;
+        width: 34em;
+    }
 }
 
 @media screen and (min-width: 991px) {}
@@ -276,6 +306,11 @@ fieldset input {
 @media screen and (min-width: 1115px) {
     .task-title-container {
         max-width: 80%;
+    }
+
+    #editTaskArea {
+        height: 8em;
+        width: 52em;
     }
 }
 
