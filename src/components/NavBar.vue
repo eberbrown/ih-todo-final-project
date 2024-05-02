@@ -59,12 +59,12 @@ const logOut = async () => {
             <li>
               <RouterLink to="/profile">Profile</RouterLink>
             </li>
-            <li>
+            <!-- <li>
               <RouterLink to="#">portfolio</RouterLink>
             </li>
             <li>
               <RouterLink to="#">contact</RouterLink>
-            </li>
+            </li> -->
           </div>
         </transition>
       </div>
