@@ -2,8 +2,10 @@
 import { useAuthStore } from '@/stores/userStore';
 import { useRouter } from 'vue-router'
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const userStore = useAuthStore()
+const { currentUser } = storeToRefs(userStore);
 const router = useRouter()
 
 const isMenuOpen = ref(false)
@@ -38,7 +40,12 @@ const logOut = async () => {
             <span class="line line3"></span>
           </button>
           <div class="logo">
-            <button @click="logOut"> Logout </button>
+            <template v-if="currentUser === null">
+              <div></div>
+            </template>
+            <template v-else>
+              <button @click="logOut"> Logout </button>
+            </template>
           </div>
         </div>
         <transition name="slide">

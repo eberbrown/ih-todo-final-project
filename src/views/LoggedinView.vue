@@ -337,32 +337,31 @@ const showProfile = () => {
 		margin-right: 0px;
 	}
 
-	/* -------------- */
 	.user-tasks-overview-container {
-	padding: 10px 10px;
-}
+		padding: 10px 10px;
+	}
 
-.user-tasks-overview-container p {
-	font-size: 1rem;
-}
+	.user-tasks-overview-container p {
+		font-size: 1rem;
+	}
 
-.user-tasks-overview-container p:first-child {
-	margin-right: 5px;
-}
+	.user-tasks-overview-container p:first-child {
+		margin-right: 5px;
+	}
 
-.user-tasks-overview-container p:last-child {
-	margin-left: 5px;
-}
+	.user-tasks-overview-container p:last-child {
+		margin-left: 5px;
+	}
 
-.user-tasks-overview-container p span {
-	font-size: 1.2rem;
-	margin-left: 2px;
-}
+	.user-tasks-overview-container p span {
+		font-size: 1.2rem;
+	}
 
-.user-name-container span:last-child {
-	display: none;
-}
-	/* -------------- */
+	.user-name-container span:last-child {
+		display: none;
+	}
+
+
 }
 
 @media screen and (min-width: 350px) {
@@ -383,11 +382,61 @@ const showProfile = () => {
 		margin-right: 0px;
 	}
 
+	.user-tasks-overview-container {
+		padding: 10px 10px;
+	}
+
+	.user-tasks-overview-container p {
+		font-size: 1rem;
+	}
+
+	.user-tasks-overview-container p:first-child {
+		margin-right: 5px;
+	}
+
+	.user-tasks-overview-container p:last-child {
+		margin-left: 5px;
+	}
+
+	.user-tasks-overview-container p span {
+		font-size: 1.2rem;
+	}
+
+	.user-name-container span:last-child {
+		display: none;
+	}
+
+
+
 }
 
 @media screen and (min-width: 575px) {}
 
 @media screen and (min-width: 767px) {
+
+	.user-tasks-overview-container {
+		padding: 15px 15px;
+	}
+
+	.user-tasks-overview-container p {
+		font-size: 1.3rem;
+	}
+
+	.user-tasks-overview-container p:first-child {
+		margin-right: 10px;
+	}
+
+	.user-tasks-overview-container p:last-child {
+		margin-left: 10px;
+	}
+
+	.user-tasks-overview-container p span {
+		font-size: 1.3rem;
+	}
+
+	.user-name-container span:last-child {
+		display: inline;
+	}
 
 	.toggle-list-btns-container img {
 		margin-right: 10px;
@@ -400,8 +449,7 @@ const showProfile = () => {
 
 @media screen and (min-width: 991px) {}
 
-@media screen and (min-width: 1115px) {
-}
+@media screen and (min-width: 1115px) {}
 
 @media screen and (min-width: 1400px) {}
 
