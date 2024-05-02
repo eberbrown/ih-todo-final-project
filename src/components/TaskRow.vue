@@ -145,7 +145,7 @@ fieldset input {
 .task-title-container {
     margin: 15px 10px 15px 12px;
     max-width: 80%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 #editTaskArea {
