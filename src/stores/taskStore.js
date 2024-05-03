@@ -10,11 +10,6 @@ export const useTaskStore = defineStore('task', () => {
   const fetchAllTasks = async () => {
     try {
       loadingTasks.value = true
-      /* const { data, error } = await supabase.from('tasks').select()
-      if (error) throw error
-      tasks.value = data
-      console.log(tasks.value)
-      return tasks.value */
       const allData = await retrieveAllTasks()
       tasks.value = allData
       return tasks.value

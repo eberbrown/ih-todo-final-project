@@ -64,7 +64,6 @@ function formatDate(timestamp) {
                         }}</span>
                 </template>
                 <template v-else>
-                    <!-- <input type="text" v-model="taskEditText" @keydown.enter="finishEditing(task.id)"> -->
                     <textarea name="editarea" id="editTaskArea" v-model="taskEditText"
                         @keydown.enter="finishEditing(task.id)"></textarea>
                 </template>
@@ -125,7 +124,6 @@ fieldset input {
     min-width: 325px;
     width: 100%;
     border-radius: 17px;
-    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
     border: 2px solid #44546f;
     box-shadow: 2px 6px 0px 0px rgba(0, 0, 0, 0.68);
     display: flex;
@@ -189,7 +187,6 @@ fieldset input {
     left: 4px;
     top: 0px;
     font-size: 2rem;
-    /* color: #47c96f; */
     transition: border 0.8s ease-in;
 }
 
@@ -217,7 +214,6 @@ fieldset input {
     justify-content: space-between;
     align-items: end;
     margin: 0 8px 0 15px;
-    /* border: 1px solid blue; */
 }
 
 .task-date-container {
@@ -226,7 +222,6 @@ fieldset input {
 
 .task-edit-btn,
 .task-delete-btn {
-    /* background-color: var(--background-color); */
     background-color: inherit;
     border-bottom: var(--background-color) 2px solid;
     border-radius: 0;
