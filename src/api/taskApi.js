@@ -8,7 +8,6 @@ export const retrieveAllTasks = async () => {
     throw error
   }
 
-  console.log(data)
   return data
 }
 

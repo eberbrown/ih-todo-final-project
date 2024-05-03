@@ -205,7 +205,6 @@ const showProfile = () => {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* border: 1px solid red; */
 }
 
 .user-tasks-overview-container p:first-child {
@@ -224,7 +223,6 @@ const showProfile = () => {
 .inputContainer {
 	display: flex;
 	width: 100%;
-	/* border: 1px solid blue; */
 }
 
 .inputContainer button {
@@ -248,7 +246,6 @@ const showProfile = () => {
 	display: flex;
 	width: 100%;
 	margin-top: 20px;
-	/* border: 1px solid red; */
 }
 
 .toggle-list-btns-container button {

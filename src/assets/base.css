@@ -14,7 +14,6 @@
   --background-color: #f4f4f4;
 }
 
-/* semantic color variables for this project */
 :root {
   --color-background: var(--background-color);
   --color-text: var(--vt-c-black);
